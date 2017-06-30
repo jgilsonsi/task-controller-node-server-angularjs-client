@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="tasksApp">
+
+<head>
+    <title>Tasks</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="js/angularjs-datetime-picker.css" />
+</head>
+
+<body>
+    <div ng-controller="tasksController">
+        <div class="col-md-12">
+            <h1>Task controller</h1>
+            <div class="col-md-12 well">
+                <label>TASK</label>
+                <form>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="description" placeholder="Description" alt="Description" ng-model="task.description">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="dateTask" placeholder="Date" alt="Date" ng-model="task.date_task" datetime-picker
+                                date-format="yyyy-MM-dd HH:mm" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary" ng-click="addTask()">Save</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <span class="text-danger">{{ info }}</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="col-md-12">
+                <a href="http://159.203.139.69:8080/report.html">Task report</a>
+                <div class="col-md-3 pull-right">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" ng-model="taskFilter">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>DESCRIPTION</th>
+                            <th>DATE</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="task in tasks | filter : taskFilter">
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.date_task | date:"dd/MM/yyyy HH:mm" }}</td>
+                            <td>
+                                <button type="button" class="btn btn-success" title="Close" ng-click="closeTask(task)">
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" title="Edit" ng-click="editTask(task)">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning" title="Remove" ng-click="removeTask(task.id)">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/angularjs-datetime-picker.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
